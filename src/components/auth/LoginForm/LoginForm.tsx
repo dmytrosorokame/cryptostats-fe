@@ -1,6 +1,6 @@
 import { Button, TextField, Link as MuiLink } from "@mui/material";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../api/auth.api";
 import { useAppDispatch } from "../../../app/hooks";
 import { User } from "../../../models/User";
@@ -8,6 +8,7 @@ import { setAuthState } from "../../../slices/auth.slice";
 
 const LoginForm = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
   const [emailErrored, setEmailErrored] = useState(false);
@@ -27,6 +28,8 @@ const LoginForm = () => {
       const response = (await login({ email, password })) as { data: User };
 
       dispatch(setAuthState({ user: response.data }));
+
+      navigate("/");
     } catch (error) {
       console.error(error);
     }
