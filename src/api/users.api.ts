@@ -15,7 +15,10 @@ export const usersApi = createApi({
         body: createUserRequest,
       }),
     }),
+    getUser: build.query<User, undefined>({
+      query: () => ({ url: "/" }),
+    }),
   }),
 });
 
-export const { useCreateUserMutation } = usersApi;
+export const { useCreateUserMutation, useGetUserQuery } = usersApi;
